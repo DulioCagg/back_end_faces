@@ -7,7 +7,6 @@ const handleRegister = (req, res, db, bcrypt) => {
   }
   const hash = bcrypt.hashSync(password, salt);
 
-  console.log(hash);
   db.transaction(trx => {
     trx.insert({
       hash: hash,
@@ -16,6 +15,7 @@ const handleRegister = (req, res, db, bcrypt) => {
       .into('logins')
       .returning("email")
       .then(logInEmail => {
+        console.log("Enter into users")
         return trx('users')
           .returning("*")
           .insert({
@@ -27,7 +27,10 @@ const handleRegister = (req, res, db, bcrypt) => {
           .catch(err => res.status(400).json("Unable to register first!"))
       })
       .then(trx.commit)
-      .catch(trx.rollback)
+      .catch(() => {
+        console.log("Error in commiting")
+        trx.rollback;
+      })
   })
     .catch(err => res.status(400).json("Unable to register second!"))
 }

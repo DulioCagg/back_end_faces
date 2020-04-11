@@ -7,7 +7,6 @@ const handleRegister = (req, res, db, bcrypt) => {
   }
   const hash = bcrypt.hashSync(password, salt);
 
-  res.json("Entering the transaction")
   db.transaction(trx => {
     trx.insert({
       hash: hash,
@@ -16,7 +15,7 @@ const handleRegister = (req, res, db, bcrypt) => {
       .into('logins')
       .returning("email")
       .then(logInEmail => {
-        console.log("Logins table successful bois")
+        res.json("Logins table successful bois")
         db('users')
           .returning("*")
           .insert({

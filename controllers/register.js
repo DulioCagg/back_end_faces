@@ -15,7 +15,6 @@ const handleRegister = (req, res, db, bcrypt) => {
       .into('logins')
       .returning("email")
       .then(logInEmail => {
-        res.json("Logins table successful bois")
         return trx('users')
           .returning("*")
           .insert({
@@ -27,8 +26,8 @@ const handleRegister = (req, res, db, bcrypt) => {
           .catch(err => res.status(400).json("Unable to register!"))
       })
       .then(trx.commit)
-      .catch(trx.rollback)
   })
+    .catch(trx.rollback)
 
 }
 

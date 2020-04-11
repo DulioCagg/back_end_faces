@@ -37,4 +37,4 @@ app.put("/image", (req, res) => { image.handleImage(req, res, db) })
 app.post("/imageurl", (req, res) => { image.handleApiRequest(req, res) })
 
 const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`Server started in port ${PORT}`));
+app.listen(PORT || 3000, () => console.log(`Server started in port ${PORT}`));

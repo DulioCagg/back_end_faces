@@ -16,7 +16,7 @@ const handleRegister = (req, res, db, bcrypt) => {
       .returning("email")
       .then(logInEmail => {
         res.json("Logins table successful bois")
-        db('users')
+        return trx('users')
           .returning("*")
           .insert({
             email: logInEmail[0],

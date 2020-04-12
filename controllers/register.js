@@ -9,9 +9,8 @@ const handleRegister = (req, res, db, bcrypt) => {
 
 
   if (db.schema.hasTable('users')) {
-    console.log("It exists");
+    console.log("It exists boooys");
   }
-  console.log(db.from('users').select('*'));
 
   db.transaction(trx => {
     trx.insert({

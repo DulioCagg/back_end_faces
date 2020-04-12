@@ -8,7 +8,7 @@ const handleRegister = (req, res, db, bcrypt) => {
   const hash = bcrypt.hashSync(password, salt);
 
 
-  if (db.schema.hasTable('users')) {
+  if (db.schema.hasTable('logins')) {
     db.select().from('users')
       .then(data => console.log(data))
       .catch(err => console.log("Users " + err))

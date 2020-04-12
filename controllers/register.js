@@ -7,6 +7,8 @@ const handleRegister = (req, res, db, bcrypt) => {
   }
   const hash = bcrypt.hashSync(password, salt);
 
+
+  console.log(db.schema);
   if (db.schema.hasTable('users')) {
     console.log("It exists");
     console.log(db.select('*').from('logins'));

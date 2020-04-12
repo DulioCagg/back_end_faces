@@ -9,7 +9,8 @@ const handleRegister = (req, res, db, bcrypt) => {
 
 
   if (db.schema.hasTable('users')) {
-    console.log(db.select('*').from('users'));
+    db.select().from('users')
+      .then(data => console.log(data))
   }
 
   db.transaction(trx => {

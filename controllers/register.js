@@ -27,10 +27,7 @@ const handleRegister = (req, res, db, bcrypt) => {
           .catch(err => res.status(400).json("Unable to register first!"))
       })
       .then(trx.commit)
-      .catch(() => {
-        console.log("Error in commiting")
-        trx.rollback;
-      })
+      .catch(trx.rollback)
   })
     .catch(err => res.status(400).json("Unable to register second!"))
 }

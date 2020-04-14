@@ -7,27 +7,16 @@ const handleRegister = (req, res, db, bcrypt) => {
   }
   const hash = bcrypt.hashSync(password, salt);
 
-
-  if (db.schema.hasTable('logins')) {
-    db.select().from('users')
-      .then(data => console.log(data))
-      .catch(err => console.log("Users " + err))
-    db.select().from('logins')
-      .then(data => console.log(data))
-      .catch(err => console.log("Logins " + err))
-  }
-
   db.transaction(trx => {
     trx.insert({
       hash: hash,
       email: email
     })
       .into('logins')
-      .returning("email")
+      .returning('email')
       .then(logInEmail => {
-        console.log("Enter into users")
         return trx('users')
-          .returning("*")
+          .returning('*')
           .insert({
             email: logInEmail[0],
             name: name,
